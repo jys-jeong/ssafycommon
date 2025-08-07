@@ -9,7 +9,7 @@ export default function App() {
     <div>
       <GlobalStyle />
       {/* <SignupPage /> */}
-      <Home />
+      <SignupPage />
     </div>
   );
 }
