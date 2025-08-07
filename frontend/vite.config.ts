@@ -10,4 +10,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"), // @ → src 폴더
     },
   },
+  build: {
+    outDir: "./client/dist",
+  },
 });
