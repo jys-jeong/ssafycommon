@@ -12,8 +12,8 @@ export function FilterTabs({ activeTabs = [], onTabToggle }) {
             color={isActive ? "active" : "inactive"}
             onClick={() => onTabToggle(tab)}
             className={isActive
-              ? "bg-[#3A8049] text-white shadow-md border-none font-extrabold"
-              : "bg-gray-50 text-[#66816c] border border-[#DBE8D0] shadow-sm hover:bg-[#eaf4e1]"
+              ? "bg-[#3A8049] text-white shadow-md border-none font-extrabold rounded-lg"
+              : "bg-gray-50 text-[#66816c] border border-[#DBE8D0] shadow-sm hover:bg-[#eaf4e1] rounded-lg"
             }
           >
             {tab}

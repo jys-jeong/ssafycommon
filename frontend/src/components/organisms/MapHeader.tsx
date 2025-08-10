@@ -3,7 +3,7 @@ import { FilterTabs } from "@/components/molecules/FilterTabs";
 import searchImg from "@/assets/image.png";
 import { useState } from "react";
 
-export function MapHeader() {
+export function MapHeader({ activeTab, onTabClick, onSearchClick }) {
   const [activeTabs, setActiveTabs] = useState(["전체"]);
 
   const handleTabToggle = (tab) => {
@@ -41,7 +41,13 @@ export function MapHeader() {
         className="flex flex-col gap-2 bg-white rounded-[18px] shadow-lg px-4 py-2 mt-5 border border-gray-200 pointer-events-auto"
         style={{ width: 300 }}
       >
+        <div
+          className="w-full flex"
+          onClick={onSearchClick}
+          style={{ cursor: "pointer" }}
+        >
         <SearchTab imgSrc={searchImg} title="광산구 수완동" />
+        </div>
       </div>
       <div
         className="flex flex-col items-center gap-2 rounded-[18px] px-4 py-[2px] mt-[5px] pointer-events-auto"

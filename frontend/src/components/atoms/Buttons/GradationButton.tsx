@@ -14,11 +14,11 @@ export default function GradationButton({
   className = '',
   ...props
 }: GradationButtonProps) {
-  const { bg, ring } = gradationButtonColors[variant];
+  const { bg } = gradationButtonColors[variant];
 
   return (
     <button
-      className={classNames(gradationButtonBase, bg, ring, className)}
+      className={classNames(gradationButtonBase, bg, className)}
       {...props}
     >
       {children}

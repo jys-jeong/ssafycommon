@@ -14,11 +14,11 @@ export default function SmallButton({
   className = '',
   ...props
 }: SmallButtonProps) {
-  const { bg, hoverBg, activeBg, ring } = smallButtonColors[variant];
+  const { bg } = smallButtonColors[variant];
 
   return (
     <button
-      className={classNames(smallButtonBase, bg, hoverBg, activeBg, ring, className)}
+      className={classNames(smallButtonBase, bg, className)}
       {...props}
     >
       {children}

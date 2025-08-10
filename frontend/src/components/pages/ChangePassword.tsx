@@ -3,7 +3,7 @@ import UserInput from '@/components/atoms/Inputs/UserInput'
 import GradationButton from '@/components/atoms/Buttons/GradationButton'
 import landscape3 from '@/assets/bgimages/landscape3.png'
 
-export default function ChangePasswordPage() {
+export default function ChangePassword() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 

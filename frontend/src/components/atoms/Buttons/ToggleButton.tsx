@@ -4,7 +4,7 @@ import { toggleButtonColors } from '@/utils/buttonColors';
 
 interface ToggleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  isSelected: boolean;
+  isSelected?: boolean;
   selectedVariant: keyof typeof toggleButtonColors;
   unselectedVariant: keyof typeof toggleButtonColors;
   className?: string;
@@ -18,11 +18,11 @@ export default function ToggleButton({
   className = '',
   ...props
 }: ToggleButtonProps) {
-  const { bg, text, ring } = isSelected ? toggleButtonColors[selectedVariant] : toggleButtonColors[unselectedVariant];
+  const { bg, text } = isSelected ? toggleButtonColors[selectedVariant] : toggleButtonColors[unselectedVariant];
 
   return (
     <button
-      className={classNames(toggleButtonBase, bg, text, ring, className)}
+      className={classNames(toggleButtonBase, bg, text, className)}
       {...props}
     >
       {children}

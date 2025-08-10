@@ -29,7 +29,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  min-width: 360px;
   min-height: 100vh;
 }
 
@@ -39,22 +39,23 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
   border: 1px solid transparent;
   padding: 3px 10px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  outline: "none";
+  border: "none";
+  box-shadow: "none";
 }
 button:hover {
-  border-color: #646cff;
+  
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: "none";
 }
 
 @media (prefers-color-scheme: light) {
@@ -66,6 +67,5 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
   }
 }

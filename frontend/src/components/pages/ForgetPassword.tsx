@@ -1,24 +1,33 @@
 import { useState } from 'react';
-import UserInput from '@/components/atoms/Inputs/UserInput'
-import GradationButton from '@/components/atoms/Buttons/GradationButton'
-import landscape3 from '@/assets/bgimages/landscape3.png'
+import { useNavigate } from 'react-router-dom'; // ✅ 추가
+import UserInput from '@/components/atoms/Inputs/UserInput';
+import GradationButton from '@/components/atoms/Buttons/GradationButton';
+import landscape3 from '@/assets/bgimages/landscape3.png';
 
-export default function ForgetPasswordPage() {
+export default function ForgetPassword() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const navigate = useNavigate(); // ✅ 네비게이터 생성
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // TODO: 비밀번호 찾기 API 호출
   };
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    navigate('/login'); // ✅ 올바른 페이지 이동
   };
 
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-gray-900" 
-      style={{ backgroundImage: `url(${landscape3})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
+      style={{
+        backgroundImage: `url(${landscape3})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
       <form
         onSubmit={handleSubmit}

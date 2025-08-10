@@ -4,37 +4,200 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { createRoot } from "react-dom/client";
 import { PinMarker } from "@/features/map/PinMarker";
 import { DirectionsControl } from "@/features/map/DirectionsControl";
-import {CONFIG} from "@/features/map/config";
-// import SimpleAROverlay from "./ghost/SimpleAROverlay";
+import { CONFIG } from "@/features/map/config";
+import type { BottomSheetRef } from "@/components/organisms/BottomSheet";
 
-
-
+// 게시물 데이터가 포함된 마커 데이터
 const EXTRA_MARKERS = [
-  { lng: 127.14764312652059, lat: 35.84418165482111, title: "산책로 입구", description: "아름다운 산책로의 시작점" },
-  { lng: 127.14613156528183, lat: 35.84964804127036, title: "연못 쉼터", description: "연못가의 평화로운 휴식공간" },
-  { lng: 127.14214296827205, lat: 35.845700639080235, title: "벚꽃길", description: "봄철 벚꽃이 만개하는 길" },
-  { lng: 127.14984840092337, lat: 35.85156432205935, title: "전망대", description: "주변을 한눈에 볼 수 있는 곳" },
-  { lng: 127.14247370527909, lat: 35.84926823721113, title: "운동기구", description: "건강한 운동을 위한 공간" },
-  { lng: 127.14692305866805, lat: 35.852323070669286, title: "피크닉존", description: "가족 피크닉 장소" },
-  { lng: 127.14215263696799, lat: 35.846070049809214, title: "독서공간", description: "조용한 독서 공간" },
-  { lng: 127.14206556949755, lat: 35.84662512473487, title: "산책로 종점", description: "산책로의 마지막 지점" },
+  { 
+    lng: 127.14764312652059, 
+    lat: 35.84418165482111, 
+    title: "산책로 입구", 
+    description: "아름다운 산책로의 시작점",
+    posts: [
+      {
+        id: "post_1",
+        author: "kimtaemin",
+        content: "아 자연으로 들어가 포근하고 싶네... 살려... 이 곳은 정말 아름다운 곳이에요. 날씨도 좋고 공기도 맑고 정말 힐링이 되는 것 같습니다. 가족들과 함께 와서 좋은 추억을 만들 수 있었어요. 다음에도 꼭 다시 오고 싶은 곳입니다. 여러분도 한번 방문해보세요!",
+        image: ["@/assets/image.jpg","@/assets/image.jpg","@/assets/image.jpg","@/assets/image.jpg","@/assets/image.jpg","@/assets/image.jpg"],
+        likes: 12,
+        comments: 3,
+        timestamp: "2시간 전"
+      },
+      {
+        id: "post_2", 
+        author: "이영희",
+        content: "산책로 입구 벚꽃이 벌써 피기 시작했어요! 봄이 왔나봐요 🌸",
+        image: "/images/post2.jpg",
+        likes: 25,
+        comments: 7,
+        timestamp: "5시간 전"
+      }
+    ]
+  },
+  { 
+    lng: 127.14613156528183, 
+    lat: 35.84964804127036, 
+    title: "연못 쉼터", 
+    description: "연못가의 평화로운 휴식공간",
+    posts: [
+      {
+        id: "post_3",
+        author: "박민수",
+        content: "연못에서 오리들이 헤엄치는 모습이 너무 귀여워요 🦆",
+        image: "/images/post3.jpg",
+        likes: 18,
+        comments: 5,
+        timestamp: "1시간 전"
+      },
+      {
+        id: "post_4",
+        author: "최은지",
+        content: "연못 쉼터에서 책 읽기 좋은 날이에요. 평화로운 오후 📚",
+        image: "/images/post4.jpg",
+        likes: 31,
+        comments: 9,
+        timestamp: "3시간 전"
+      },
+      {
+        id: "post_5",
+        author: "정현우",
+        content: "연못 반영이 너무 예뻐서 계속 보게 되네요 ✨",
+        image: "/images/post5.jpg",
+        likes: 22,
+        comments: 4,
+        timestamp: "6시간 전"
+      }
+    ]
+  },
+  { 
+    lng: 127.14214296827205, 
+    lat: 35.845700639080235, 
+    title: "벚꽃길", 
+    description: "봄철 벚꽃이 만개하는 길",
+    posts: [
+      {
+        id: "post_6",
+        author: "한지민",
+        content: "벚꽃길 산책하니까 기분이 너무 좋아요! 봄의 전령 🌸",
+        image: "/images/post6.jpg",
+        likes: 45,
+        comments: 12,
+        timestamp: "30분 전"
+      }
+    ]
+  },
+  { 
+    lng: 127.14984840092337, 
+    lat: 35.85156432205935, 
+    title: "전망대", 
+    description: "주변을 한눈에 볼 수 있는 곳",
+    posts: [
+      {
+        id: "post_7",
+        author: "송태호",
+        content: "전망대에서 보는 전북대 캠퍼스 전경이 장관이에요! 📸",
+        image: "/images/post7.jpg",
+        likes: 67,
+        comments: 15,
+        timestamp: "4시간 전"
+      },
+      {
+        id: "post_8",
+        author: "윤서연",
+        content: "일출 보러 전망대 왔는데 정말 감동적이에요 🌅",
+        image: "/images/post8.jpg",
+        likes: 89,
+        comments: 21,
+        timestamp: "어제"
+      }
+    ]
+  },
+  { 
+    lng: 127.14247370527909, 
+    lat: 35.84926823721113, 
+    title: "운동기구", 
+    description: "건강한 운동을 위한 공간",
+    posts: [
+      {
+        id: "post_9",
+        author: "강동현",
+        content: "오늘도 운동기구에서 땀 흘렸습니다! 건강이 최고 💪",
+        image: "/images/post9.jpg",
+        likes: 34,
+        comments: 8,
+        timestamp: "1시간 전"
+      }
+    ]
+  },
+  { 
+    lng: 127.14692305866805, 
+    lat: 35.852323070669286, 
+    title: "피크닉존", 
+    description: "가족 피크닉 장소",
+    posts: [
+      {
+        id: "post_10",
+        author: "김가족",
+        content: "아이들과 함께 피크닉 왔어요! 날씨도 좋고 최고 🧺",
+        image: "/images/post10.jpg",
+        likes: 56,
+        comments: 13,
+        timestamp: "2시간 전"
+      }
+    ]
+  },
+  { 
+    lng: 127.14215263696799, 
+    lat: 35.846070049809214, 
+    title: "독서공간", 
+    description: "조용한 독서 공간",
+    posts: [
+      {
+        id: "post_11",
+        author: "문학소녀",
+        content: "조용한 독서공간에서 책 읽는 시간이 너무 소중해요 📖",
+        image: "/images/post11.jpg",
+        likes: 28,
+        comments: 6,
+        timestamp: "5시간 전"
+      }
+    ]
+  },
+  { 
+    lng: 127.14206556949755, 
+    lat: 35.84662512473487, 
+    title: "산책로 종점", 
+    description: "산책로의 마지막 지점",
+    posts: [
+      {
+        id: "post_12",
+        author: "산책러버",
+        content: "산책로 완주! 오늘도 건강한 하루였어요 🚶‍♂️",
+        image: "/images/post12.jpg",
+        likes: 41,
+        comments: 10,
+        timestamp: "3시간 전"
+      }
+    ]
+  }
 ];
 
 mapboxgl.accessToken = CONFIG.mapboxToken;
 const coordKey = (coord) => `${coord[0].toFixed(8)},${coord[1].toFixed(8)}`;
 
-const Map3D = () => {
-  // Refs
+interface Map3DProps {
+  bottomSheetRef: React.RefObject<BottomSheetRef>;
+}
+
+const Map3D = ({ bottomSheetRef }: Map3DProps) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const domMarkerMap = useRef(new Map());
 
-  // State
   const [destinationPoint, setDestinationPoint] = useState(null);
   const [isRouting, setIsRouting] = useState(false);
   const [routeMarkers, setRouteMarkers] = useState([]);
-
-  // AR 관련 state
   const [isARActive, setIsARActive] = useState(false);
   const [selectedMarkerData, setSelectedMarkerData] = useState(null);
 
@@ -212,13 +375,6 @@ const Map3D = () => {
         );
 
         map.current.fitBounds(bounds, { padding: 50 });
-
-        const distance = (routeData.distance / 1000).toFixed(1);
-        const duration = Math.round(routeData.duration / 60);
-
-        alert(
-          `전북대 → 목적지 경로\n거리: ${distance}km\n예상 시간: ${duration}분\n경로 포인트: ${filteredRoute.length}개`
-        );
       } else {
         alert("경로를 찾을 수 없습니다.");
       }
@@ -275,7 +431,7 @@ const Map3D = () => {
       .addTo(map.current);
   };
 
-  // 이벤트 핸들러들
+  // 경로 마커 클릭 핸들러
   const handleRouteMarkerClick = (coords) => {
     if (routeMarkers.length > 1) {
       routeMarkers.slice(1).forEach((marker) => marker.remove());
@@ -289,8 +445,63 @@ const Map3D = () => {
     getRoute(startPoint, coords);
   };
 
+  // 마커 클릭 핸들러 (BottomSheet 연동)
   const handlePinMarkerClick = (coords, feature) => {
     console.log("개별 마커 클릭됨:", coords);
+    
+    // 클릭된 마커의 데이터 찾기
+    const clickedMarker = EXTRA_MARKERS.find(marker => 
+      Math.abs(marker.lng - coords[0]) < 0.000001 &&
+      Math.abs(marker.lat - coords[1]) < 0.000001
+    );
+    
+    // 메인 마커인지 확인
+    const isMainMarker = Math.abs(coords[0] - CONFIG.targetLng) < 0.000001 && 
+                         Math.abs(coords[1] - CONFIG.targetLat) < 0.000001;
+    
+    let markerData;
+    
+    if (isMainMarker) {
+      // 메인 마커 데이터
+      markerData = {
+        title: "전북대학교",
+        description: "산책 프로젝트 출발지",
+        posts: [
+          {
+            id: "main_post_1",
+            author: "전북대생",
+            content: "우리 학교 캠퍼스가 정말 아름다워요! 🏫",
+            image: "/images/campus.jpg",
+            likes: 156,
+            comments: 32,
+            timestamp: "1시간 전"
+          },
+          {
+            id: "main_post_2",
+            author: "산책동아리",
+            content: "매일 캠퍼스 산책 코스로 건강 챙기고 있어요 🚶‍♂️",
+            likes: 89,
+            comments: 18,
+            timestamp: "3시간 전"
+          }
+        ]
+      };
+    } else if (clickedMarker) {
+      // EXTRA_MARKERS 데이터
+      markerData = clickedMarker;
+    } else {
+      // 기본 데이터
+      markerData = {
+        title: "선택된 지점",
+        description: "이 지점에 대한 정보",
+        posts: []
+      };
+    }
+    
+    // BottomSheet 열기
+    bottomSheetRef.current?.openWithData(markerData);
+    
+    // 기존 길찾기 로직도 유지
     handleRouteMarkerClick(coords);
   };
 
@@ -330,6 +541,7 @@ const Map3D = () => {
     setSelectedMarkerData(null);
   };
 
+  // 클러스터 클릭 핸들러
   const handleClusterClick = (event) => {
     const features = map.current.queryRenderedFeatures(event.point, {
       layers: ["clusters"],
@@ -340,25 +552,32 @@ const Map3D = () => {
     const { cluster_id: clusterId, point_count: pointCount } = features[0].properties;
     const coordinates = features[0].geometry.coordinates.slice();
 
+    // 클러스터 내 마커들의 게시물을 모아서 표시
     map.current
       .getSource("markers")
-      .getClusterExpansionZoom(clusterId, (err, zoom) => {
+      .getClusterLeaves(clusterId, pointCount, 0, (err, leaves) => {
         if (err) return;
-
-        const shouldZoom = window.confirm(
-          `클러스터에 ${pointCount}개의 마커가 있습니다.\n확대하시겠습니까?`
-        );
-
-        if (shouldZoom) {
-          map.current.easeTo({
-            center: coordinates,
-            zoom: zoom,
-          });
-        } else {
-          alert(
-            `클러스터 정보\n마커 개수: ${pointCount}개\n좌표: ${coordinates[0].toFixed(4)}, ${coordinates[1].toFixed(4)}`
+        
+        // 클러스터 내 모든 게시물을 모음
+        const allPosts = [];
+        leaves.forEach(leaf => {
+          const marker = EXTRA_MARKERS.find(m => 
+            Math.abs(m.lng - leaf.geometry.coordinates[0]) < 0.000001 &&
+            Math.abs(m.lat - leaf.geometry.coordinates[1]) < 0.000001
           );
-        }
+          if (marker && marker.posts) {
+            allPosts.push(...marker.posts);
+          }
+        });
+        
+        const clusterData = {
+          title: `이 지역의 게시물 (${pointCount}개 장소)`,
+          description: `${allPosts.length}개의 게시물이 있습니다`,
+          posts: allPosts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+        };
+        
+        // BottomSheet로 클러스터 데이터 표시
+        bottomSheetRef.current?.openWithData(clusterData);
       });
   };
 
@@ -505,7 +724,7 @@ const Map3D = () => {
       className="map-container"
       style={{ 
         width: "100%", 
-        height: "100vh", 
+        height: "94vh", 
         position: "relative" 
       }}
     >
@@ -518,15 +737,15 @@ const Map3D = () => {
         }} 
       />
       
-      {/* 길찾기 컨트롤 */}
+      {/* 길찾기 컨트롤
       <DirectionsControl
         onClearRoute={clearRoute}
         isRouting={isRouting}
         destinationPoint={destinationPoint}
-      />
+      /> */}
 
       {/* AR 버튼 */}
-      <button
+      {/* <button
         onClick={handleARButtonClick}
         style={{
           position: "absolute",
@@ -560,14 +779,7 @@ const Map3D = () => {
       >
         <span style={{ fontSize: "16px" }}>📷</span>
         <span>AR 카메라</span>
-      </button>
-
-      {/* SimpleAROverlay */}
-      {/* <SimpleAROverlay
-        isActive={isARActive}
-        markerData={selectedMarkerData}
-        onClose={handleCloseAR}
-      /> */}
+      </button> */}
     </div>
   );
 };
