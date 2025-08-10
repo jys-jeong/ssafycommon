@@ -30,9 +30,9 @@ export default function AppRouter() {
         <Route path="/password/Forget" element={<ForgetPassword />} />
         <Route path="/myprofile" element={<Profile />} />
         <Route path="/rank" element={<Rank />} />
-        <Route path="/follow" element={<Map3D/>} />
+        <Route path="/" element={<Map3D/>} />
         {/* 홈 페이지 */}
-        <Route path="/" element={<Home />} />
+        <Route path="/follow" element={<Home />} />
         {/* 보호 라우트 */}
         <Route element={<RequireAuth />}></Route>
 
